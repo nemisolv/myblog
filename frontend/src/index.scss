@@ -1,0 +1,242 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+html {
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+@layer base {
+    :root {
+        --primary: #9400ff;
+        --light-primary: #9250c1e6;
+    }
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family:'Poppins', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    input {
+        outline: none;
+    }
+
+    button {
+        outline: none;
+    }
+    a[href] {
+        text-decoration: none;
+    }
+}
+
+@layer components {
+    .page-container {
+        max-width: 1280px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .input-search:not(:placeholder-shown) ~ span {
+        color:  #333;
+        cursor: pointer;
+    }
+
+    #page-not-found {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+        background: url('./assets/images/404.gif') no-repeat center;
+    }
+
+    .banner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 600px;
+        background-color: #f5f5f5;
+        width: 100%;
+        background: url('https://marketplace.canva.com/EAFHNkHvFsA/1/0/1600w/canva-grey-minimalist-tips-blog-banner-yR0ULIwVxyE.jpg')
+            no-repeat center;
+    }
+
+    .rounded-separate::after {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #fff;
+        transform: translate(50%, -50%);
+
+        top: 50%;
+        right: -8px;
+    }
+    .separate-gray.rounded-separate::after {
+        background-color: #6B6B6B;
+    }
+
+    .border-t-heading::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        border-radius: 99999px;
+        top: -4px;
+        border: 2px solid var(--light-primary);
+        width: 35px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
+        & .selected {
+            color: white;
+            background: #9400FF ;
+            border-radius: 6px;
+            padding: 4px 14px;
+        }
+        & > li:hover:not(.selected) {
+            color: #9400FF;
+            font-weight: 600;
+        }
+    }
+
+    .feature-post-list .swiper-slide {
+        width: 300px;
+        height: auto;
+    }
+
+    .table-custom {
+        overflow-x: auto;
+        background-color: white;
+        border-radius: 10px;
+        table {
+            width: 100%;
+        }
+        thead {
+            background-color: #f7f7f8;
+        }
+        th,
+        td {
+            vertical-align: middle;
+        }
+        th {
+            padding: 20px 30px;
+            font-weight: 600;
+            text-align: left;
+        }
+        td {
+            padding: 15px 30px;
+        }
+    }
+    .hidden-input {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        white-space: nowrap;
+    }
+    .entry-content {
+        max-width: 1280px;
+    }
+
+    .entry-content,
+    .entry-content .ql-snow .ql-editor {
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        h2,
+        h3,
+        h4 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 32px;
+        }
+        h3 {
+            font-size: 26px;
+        }
+        h4 {
+            font-size: 22px;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 2;
+        }
+        figure {
+            margin-bottom: 20px;
+        }
+        figure img {
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        figcaption {
+            text-align: center;
+            font-style: italic;
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+        ul {
+            list-style-type: disc;
+        }
+        ol {
+            list-style: decimal;
+        }
+        ul,
+        ol {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            margin-left: 0;
+            li {
+                margin-bottom: 10px;
+            }
+        }
+        img {
+            border-radius: 8px;
+            margin-bottom: 30px;
+            // width: 100%;
+            // max-height: 400px;
+        }
+        @media screen and (max-width: 1023.98px) {
+            font-size: 14px;
+            h2 {
+                font-size: 26px;
+            }
+            h3 {
+                font-size: 24px;
+            }
+            h4 {
+                font-size: 20px;
+            }
+        }
+    }
+    .quill {
+        position: relative;
+        .ql-toolbar {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 10;
+        }
+    }
+    .ql-editor {
+        min-height: 300px;
+    }
+}
