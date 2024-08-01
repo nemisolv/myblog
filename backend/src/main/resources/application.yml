@@ -1,10 +1,10 @@
 spring:
   datasource:
 #    url: jdbc:mysql://database-my-blog.c1uyawmgs9mn.ap-southeast-1.rds.amazonaws.com:3306/myblog
-    url: jdbc:mysql://localhost:3306/myblog
+    url: jdbc:mysql://viaduct.proxy.rlwy.net:48697/myblog
     username: root
-    password: nam123456
-#    password:
+    password: KpOZlzLhKNdNgAdgMNVBobMJcyEZpjJo
+#    password: nam123456
   jpa:
     hibernate:
       ddl-auto: update
