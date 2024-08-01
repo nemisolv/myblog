@@ -71,26 +71,26 @@ function ManagePosts() {
                                     <td>
                                         <div className="flex items-center gap-x-3">
                                             <img
-                                                src={post.thumbnail}
+                                                src={post?.thumbnail}
                                                 alt=""
                                                 className="w-[66px] h-[55px] rounded object-cover"
                                             />
                                             <div className="flex-1">
-                                                <h3 className="font-semibold">{post.title}</h3>
+                                                <h3 className="font-semibold">{post?.title}</h3>
                                                 <time className="text-sm text-gray-500">
-                                                    {dateConverter(post.createdAt)}
+                                                    {dateConverter(post?.createdAt)}
                                                 </time>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <span className="text-sm font-medium me-2 px-2.5 py-0.5 rounded bg-primary text-gray-100 ">
-                                            {post.tag.name}
+                                            {post?.tag?.name}
                                         </span>
                                     </td>
                                     <td>
                                         <span className="text-gray-500">
-                                            {post.user.firstName + ' ' + post.user.lastName}
+                                            {post?.user?.firstName + ' ' + post?.user?.lastName}
                                         </span>
                                     </td>
                                     <td>
@@ -98,7 +98,7 @@ function ManagePosts() {
                                     </td>
                                     <td>
                                         <div className="flex items-center gap-x-3 text-gray-500">
-                                            {post.status === 'APPROVED' && (
+                                            {post?.status === 'APPROVED' && (
                                                 <Link
                                                     to={`/posts/${post.slug}`}
                                                     className="flex items-center justify-center w-10 h-10 border border-gray-200 rounded cursor-pointer"

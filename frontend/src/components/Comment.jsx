@@ -8,11 +8,10 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { privateRequest, publicRequest } from '@/config/axiosConfig';
-import Loading from './shared/Loading';
 import LoadingPage from './shared/LoadingPage';
 
 function Comment({ postId }) {
-    const { user } = useSelector((state) => state.auth);
+    const {  currentUser } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -39,7 +38,7 @@ function Comment({ postId }) {
     }, [postId]);
     const handlePostComment = async (e) => {
         e.preventDefault();
-        if (!user) {
+        if (!currentUser) {
             toast.error('To comment, you must be logged in first. ');
             navigate('/login');
         }
@@ -51,11 +50,11 @@ function Comment({ postId }) {
             // if edit mode
             if (cancel) {
                 const res = await privateRequest.patch(`comments/${holdCmt.id}`, { message: comment });
-                console.log(res.data);
+                console.log(res);
                 setComments(
                     comments.map((comment) => {
                         if (comment.id === holdCmt.id) {
-                            comment = res.data;
+                            comment = res;
                         }
                         return comment;
                     }),
@@ -63,7 +62,7 @@ function Comment({ postId }) {
             } else {
                 console.log('post duowc khong');
                 const res = await privateRequest.post(`/comments`, { message: comment, post_id: postId });
-                setComments((prev) => [res.data, ...prev]);
+                setComments((prev) => [res, ...prev]);
             }
 
             setComment('');
@@ -81,9 +80,7 @@ function Comment({ postId }) {
             setComment(cmt.message);
         } catch (error) {
             setLoading(false);
-            if (error.response.status === 400) {
-                toast.error(error.response.data?.message);
-            }
+            toast.error('Error fetching data');
         }
     };
     const handleCancel = () => {
@@ -179,7 +176,7 @@ function Comment({ postId }) {
                                     </div>
                                 </footer>
                                 <p className="text-gray-500 400">{cmt.message}</p>
-                                {user && user.id === cmt.user.id && (
+                                {currentUser && currentUser.id === cmt?.user.id && (
                                     <div className="flex items-center mt-4 space-x-4">
                                         {/* check if this comment is belong to own user */}
                                         <button
