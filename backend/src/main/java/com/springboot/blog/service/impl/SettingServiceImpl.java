@@ -22,8 +22,4 @@ public class SettingServiceImpl implements SettingService {
         return new EmailSettingBag(mailsSetting);
     }
 
-    @Override
-    public void updateSetting(List<Setting> settings) {
-        settingRepo.saveAll(settings);
-    }
 }

@@ -111,8 +111,13 @@ public class PostController {
     }
 
     @GetMapping("/latest")
-    public ResponseEntity<FullInfoPost> getLatestPost() {
-        return ResponseEntity.ok(postService.getLatest());
+    public ResponseEntity<?> getLatestPost() {
+        FullInfoPost latest = postService.getLatest();
+        if(latest==null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(latest);
     }
 
     @GetMapping("/recent")

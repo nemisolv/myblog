@@ -26,26 +26,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("first_name")
     private String firstName;
-    @JsonProperty("last_name")
     private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
     private String avatar;
     private String description;
-
-    @Column(length = 64)  // Can be null because OAuth2 authentication can be implemented later
     private String password;
-
     private String address;
     private String secret;
     private boolean mfaEnabled;
 
 
     @JsonIgnore
-    @Column(columnDefinition = "DEFAULT false")
+    @Column(columnDefinition = "BOOLEAN DEFAULT 0")
     private boolean enabled;
     @JsonIgnore
     private boolean trashed;
@@ -81,19 +76,15 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles ;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
-    private List<Post> posts = new ArrayList<>();
-
-
-//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-//    private List<Token> tokens;
+    private List<Post> posts ;
 
 
     @Override

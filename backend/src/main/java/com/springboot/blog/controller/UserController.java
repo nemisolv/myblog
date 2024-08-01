@@ -3,18 +3,18 @@ package com.springboot.blog.controller;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
-import com.springboot.blog.payload.auth.TFARequest;
-import com.springboot.blog.service.AuthService;
+import com.springboot.blog.payload.user.UpdateUserInfoRequest;
+import com.springboot.blog.payload.user.UserDTO;
+import com.springboot.blog.payload.user.UserProfile;
+import com.springboot.blog.security.CurrentUser;
 import com.springboot.blog.service.UserService;
 import com.springboot.blog.utils.UploadResource;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,18 +53,18 @@ public class UserController {
     }
 
 
-    @PutMapping(value = "/me/update",consumes =  MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> updateProfile(@ModelAttribute @Valid UserProfile userProfile,
+    @PutMapping(value = "/update-profile",consumes =  MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateProfile(@ModelAttribute @Valid UpdateUserInfoRequest userProfile,
+                                        @CurrentUser User user,
                                         @RequestParam(value = "image", required = false) MultipartFile multipartFile)
              {
         if (multipartFile != null && !multipartFile.isEmpty()) {
-            String uploadDir = "users/" + userProfile.getId();
+            String uploadDir = "users/" + user.getId();
             String url = uploadResource.uploadImage(multipartFile, uploadDir);
             userProfile.setAvatar(url);
         }
         try {
             UserDTO savedUser = userService.updateProfile(userProfile);
-
 
 
             return ResponseEntity.ok(savedUser);
@@ -125,15 +125,12 @@ public class UserController {
         return ResponseEntity.ok(userList);
     }
 
-    @GetMapping("/me")
-    public FullInfoUser fetchMe(@AuthenticationPrincipal User user) throws ResourceNotFoundException {
-        return modelMapper.map(user,FullInfoUser.class);
-    }
+
 
     @PatchMapping("/enable-tfa")
-    public void switchTFA(@RequestBody TFARequest tfaRequest) {
+    public void switchTFA( @CurrentUser User user) {
 
-        userService.switchTFAstatus(tfaRequest.getEmail(),tfaRequest.isEnabled());
+        userService.switchTFAStatus(user.getEmail());
 
     }
 }

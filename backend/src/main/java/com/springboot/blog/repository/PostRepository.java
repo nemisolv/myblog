@@ -46,6 +46,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Post findTopByOrderByCreatedAtDesc();
 //    List<Post> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
+    @Query("SELECT p FROM Post p WHERE p.trashed = false AND p.status = 'APPROVED' ORDER BY p.createdAt DESC LIMIT 10")
     List<Post> findFirst10ByOrderByCreatedAt();
 
     @Query("SELECT p FROM Post p WHERE p.trashed = true")

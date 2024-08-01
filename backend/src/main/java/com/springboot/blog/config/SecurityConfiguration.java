@@ -37,7 +37,6 @@ public class SecurityConfiguration {
 
 
 
-//    private final LogoutService logoutService;
 
 
 
@@ -52,7 +51,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/auth/verify","/api/v1/auth/verify-email").permitAll()
+                .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/auth/verify","/api/v1/auth/verify-email", "/api/v1/auth/verify-tfa").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/tags/**", "/api/v1/posts/**", "api/v1/users/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)
@@ -76,14 +75,6 @@ public class SecurityConfiguration {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                     response.getWriter().write(authException.getMessage());
                 }));
-//        http.logout(logout -> logout.logoutUrl("/api/v1/logout")
-//                .addLogoutHandler(logoutService)
-//                .logoutSuccessHandler((
-//                        (request, response, authentication)
-//                                -> SecurityContextHolder.clearContext())
-//                )
-//        );
-
 
         return http.build();
     }

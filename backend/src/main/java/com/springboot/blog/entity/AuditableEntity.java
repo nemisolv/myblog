@@ -27,5 +27,4 @@ public class AuditableEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // getters and setters or other common methods
 }

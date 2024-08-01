@@ -3,6 +3,9 @@ package com.springboot.blog.service.impl;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
+import com.springboot.blog.payload.user.UpdateUserInfoRequest;
+import com.springboot.blog.payload.user.UserDTO;
+import com.springboot.blog.payload.user.UserProfile;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.repository.UserRepository;
@@ -15,8 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -119,17 +120,9 @@ public class UserServiceImpl implements UserService {
         userRepo.updateTrashed(id, true);
     }
 
-    @Override
-    public FullInfoUser fetchMe() throws ResourceNotFoundException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        User user = (User) authentication.getPrincipal();
-        User userFetchMe = userRepo.findById(user.getId()).get();
-        return modelMapper.map(userFetchMe, FullInfoUser.class);
-    }
 
     @Override
-    public UserDTO updateProfile(UserProfile user) throws ResourceNotFoundException {
+    public UserDTO updateProfile( UpdateUserInfoRequest user) throws ResourceNotFoundException {
         User userFromDB = userRepo.findById(user.getId())
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Could not find any user with the given id: " + user.getId())
@@ -150,12 +143,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void switchTFAstatus(String email, boolean status) {
-        Optional<User> user = userRepo.findByEmail(email);
-        user.get().setSecret(tfaService.generateNewSecret());
-        userRepo.save(user.get());
-        userRepo.switchTFAstatus(email, status);
+    public void switchTFAStatus(String email) {
+        Optional<User> userOptional = userRepo.findByEmail(email);
+        User user = userOptional.get();
+        if(user.getSecret()==null){
+            user.setSecret(tfaService.generateNewSecret());
+        }
+
+        user.setMfaEnabled(!user.isMfaEnabled());
+        userRepo.save(user);
     }
 
     @Override

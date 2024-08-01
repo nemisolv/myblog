@@ -2,6 +2,9 @@ package com.springboot.blog.service;
 
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
+import com.springboot.blog.payload.user.UpdateUserInfoRequest;
+import com.springboot.blog.payload.user.UserDTO;
+import com.springboot.blog.payload.user.UserProfile;
 
 import java.util.List;
 
@@ -24,11 +27,10 @@ public interface UserService {
 
     void trashUser(Long id) throws ResourceNotFoundException;
 
-    FullInfoUser fetchMe() throws ResourceNotFoundException;
 
-    UserDTO updateProfile(UserProfile userProfile) throws ResourceNotFoundException;
+    UserDTO updateProfile(UpdateUserInfoRequest userProfile) throws ResourceNotFoundException;
 
-    void switchTFAstatus(String email, boolean status);
+    void switchTFAStatus(String email);
 
     void confirmEmail(String email);
 }

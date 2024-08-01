@@ -3,7 +3,7 @@
       ["module-resolver", {
        
         "alias": {
-          "~": "./src"
+          "@": "./src"
         }
       }]
     ]

@@ -1,9 +1,9 @@
-const { axiosPrivate } = require('~/config/axiosConfig');
+import { privateRequest } from "../config/axiosConfig";
 
 class SettingService {
     static async getSetting() {
         try {
-            const res = await axiosPrivate.get('/settings/mail');
+            const res = await privateRequest.get('/settings/mail');
 
             return res.data;
         } catch (error) {
@@ -14,7 +14,7 @@ class SettingService {
 
     static async updateSetting(data) {
         try {
-            const res = await axiosPrivate.patch('/settings/mail-server', data);
+            const res = await privateRequest.patch('/settings/mail-server', data);
 
             return res;
         } catch (error) {
@@ -24,7 +24,7 @@ class SettingService {
     }
     static async updateMailTemplate(data) {
         try {
-            const res = await axiosPrivate.patch('/settings/mail-template', data);
+            const res = await privateRequest.patch('/settings/mail-template', data);
 
             return res;
         } catch (error) {

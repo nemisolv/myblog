@@ -13,14 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class PageResponse<T> {
-    @JsonProperty("page_no")
     private int pageNo;
-    @JsonProperty("page_size")
     private int pageSize;
     private List<T> data;
-    @JsonProperty("total_elements")
     private long totalElements;
-    @JsonProperty("total_page")
     private int totalPage;
     private boolean last;
 }

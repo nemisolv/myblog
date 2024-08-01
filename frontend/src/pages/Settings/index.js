@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '~/components/Button';
-import { Input } from '~/components/Form';
+import Button from '@/components/Button';
+import { Input } from '@/components/Form';
 import { PulseLoader } from 'react-spinners';
-import { Radio } from '~/components/Checkbox';
+import { Radio } from '@/components/Checkbox';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import SettingService from '~/services/setting.service';
+import SettingService from '@/services/setting.service';
 
 const schema = Yup.object({
     MAIL_HOST: Yup.string().required('Mail host is required'),

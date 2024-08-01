@@ -2,14 +2,11 @@ package com.springboot.blog.security.oauth2;
 
 
 import com.springboot.blog.config.AppProperties;
-import com.springboot.blog.entity.Role;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.BadRequestException;
-import com.springboot.blog.payload.FullInfoUser;
 import com.springboot.blog.repository.UserRepository;
 import com.springboot.blog.service.impl.JwtService;
 import com.springboot.blog.utils.CookieUtils;
-import com.springboot.blog.utils.JwtUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,7 +62,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         User user = userRepo.findByEmail(principal.getUsername()).orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
-        String token = JwtUtils.constructToken(principal, user, modelMapper, jwtService);;
+        String token = jwtService.generateToken(user);
         String refreshToken = jwtService.generateRefreshToken((UserDetails) authentication.getPrincipal());
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)

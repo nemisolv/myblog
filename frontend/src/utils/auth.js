@@ -24,7 +24,7 @@ export const getToken = () => {
     };
 };
 
-export const logOut = () => {
+export const logOut = (navigate) => {
     const access_token = Cookies.get(accessToken);
     if (access_token) {
         Cookies.remove(accessToken, {
@@ -37,5 +37,11 @@ export const logOut = () => {
             path: '/',
             domain: process.env.COOKIE_DOMAIN,
         });
+    }
+    localStorage.removeItem('user');
+    if(navigate) {
+        navigate('/login');
+    }else {
+        window.location.href = '/login';
     }
 };

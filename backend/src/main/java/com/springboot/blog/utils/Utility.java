@@ -24,6 +24,8 @@ public class Utility {
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.auth",settingBag.getSmtpAuth());
         properties.setProperty("mail.smtp.starttls.enable", settingBag.getSmtpSecured());
+        properties.put("mail.smtp.starttls.enable", "true"); // Enable STARTTLS
+
         mailSender.setJavaMailProperties(properties);
         return mailSender;
     }

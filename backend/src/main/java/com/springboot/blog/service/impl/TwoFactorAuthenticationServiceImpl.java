@@ -21,9 +21,9 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
     @Override
     public String generateQrImageUri(String secret) {
         QrData data = new QrData.Builder()
-                .label("hello")
+                .label("nemiolv's blog")
                 .secret(secret)
-                .issuer("Vu Hoai Nam")
+                .issuer("My blog")
                 .algorithm(HashingAlgorithm.SHA1)
                 .period(30)
                 .digits(6)

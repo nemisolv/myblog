@@ -2,7 +2,7 @@ package com.springboot.blog;
 
 public class Constants {
     public static final  int TOKEN_EXPIRE = 15;
-    public static final String BASE_URL_FRONTEND = "https://my-blog-psi-gilt.vercel.app";
+    public static final String BASE_URL_FRONTEND = "localhost:3000";
 
     public static final String MAIL_HOST = "MAIL_HOST";
     public static final String MAIL_PORT = "MAIL_PORT";

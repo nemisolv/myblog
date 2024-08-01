@@ -30,10 +30,10 @@ public class AuthenticationController {
     private final ConfirmationTokenService confirmationTokenService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(HttpServletRequest servletRequest, @RequestBody @Valid RegisterRequest req) {
+    public ResponseEntity<?> register( @RequestBody @Valid RegisterRequest req) {
         try {
-            authService.register(servletRequest, req);
-            return ResponseEntity.ok("Registration successful!");
+            authService.register( req);
+            return ResponseEntity.accepted().build();
         } catch (UniqueFieldViolationException e) {
             ErrorDTO errorDTO = new ErrorDTO();
             errorDTO.setTimestamp(new Date());
@@ -66,11 +66,10 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
     }
 
-    @PostMapping("/verify")
-    public ResponseEntity<?> verifyCode(@RequestBody VerificationRequest verificationRequest) {
+    @PostMapping("/verify-tfa")
+    public ResponseEntity<?> verifyCode(@RequestBody @Valid VerificationRequest verificationRequest) {
         return ResponseEntity.ok(authService.verifyCode(verificationRequest));
 
     }

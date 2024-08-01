@@ -8,5 +8,4 @@ import java.util.List;
 public interface SettingService {
     EmailSettingBag listMailSettings();
 
-    void updateSetting(List<Setting> settings);
 }

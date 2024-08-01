@@ -69,7 +69,7 @@ public class PostServiceImpl implements PostService {
         return getPostResponse(pageNo, pageSize, page);
     }
 
-    private PageResponse<FullInfoPost>  getPostResponse(int pageNo, int pageSize, Page<Post> page) {
+    private PageResponse<FullInfoPost> getPostResponse(int pageNo, int pageSize, Page<Post> page) {
         List<FullInfoPost> content = page.getContent().stream()
                 .map(post -> modelMapper.map(post, FullInfoPost.class)).toList();
         long totalElements = page.getTotalElements();
@@ -117,7 +117,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDTO updatePost(Long id, PostDTO postDTO) throws ResourceNotFoundException {
-        if(!checkUniqueSlug(postDTO)) {
+        if (!checkUniqueSlug(postDTO)) {
             throw new DataIntegrityViolationException("Slug or title is in use. Please choose another one");
         }
 
@@ -131,7 +131,7 @@ public class PostServiceImpl implements PostService {
         existingPost.setStatus(PostStatus.valueOf(postDTO.getStatus()));
         existingPost.setHot(postDTO.isHot());
         existingPost.setTag(tagRepo.findById(postDTO.getTagId()).get());
-        if(postDTO.getThumbnail()!= null) {
+        if (postDTO.getThumbnail() != null) {
             existingPost.setThumbnail(postDTO.getThumbnail());
         }
         existingPost.setContent(postDTO.getContent());
@@ -150,12 +150,12 @@ public class PostServiceImpl implements PostService {
     private boolean checkUniqueSlug(PostDTO postDTO) {
         Optional<Post> postBySlug = postRepo.findBySlug(postDTO.getSlug());
         Optional<Post> postById = postRepo.findById(postDTO.getId());
-        if(!postBySlug.isPresent()) {
+        if (!postBySlug.isPresent()) {
             return true;
         }
 
-        if(postById.isPresent() && !postById.get().getSlug().equals(postBySlug.get().getSlug()) ) {
-          return false;
+        if (postById.isPresent() && !postById.get().getSlug().equals(postBySlug.get().getSlug())) {
+            return false;
         }
 
         return true;
@@ -165,13 +165,13 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void trashPost(Long id) throws ResourceNotFoundException {
         postRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Couldn't find any post with the given id: " + id));
-        postRepo.updateTrashed(id,true);
+        postRepo.updateTrashed(id, true);
 
     }
 
     @Override
     public List<FullInfoPost> listRelatedPosts(Long id, Long tagId) {
-        List<Post> posts = postRepo.listRelatedPosts(id,tagId);
+        List<Post> posts = postRepo.listRelatedPosts(id, tagId);
         List<FullInfoPost> list = posts.stream().map(post -> modelMapper.map(post, FullInfoPost.class)).toList();
         return list;
     }
@@ -179,7 +179,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<CommentDTO> listCommentsByPosts(Long postId) {
         List<Comment> comments = commentRepo.findAllByPostIdOrderByCreatedAtDesc(postId);
-        List<CommentDTO>  list = comments.stream().map(cmt -> modelMapper.map(cmt, CommentDTO.class)).toList();
+        List<CommentDTO> list = comments.stream().map(cmt -> modelMapper.map(cmt, CommentDTO.class)).toList();
         return list;
     }
 
@@ -198,7 +198,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public FullInfoPost getLatest() {
-        return modelMapper.map(postRepo.findTopByOrderByCreatedAtDesc(), FullInfoPost.class);
+        Post post = postRepo.findTopByOrderByCreatedAtDesc();
+        if (post != null) {
+            return modelMapper.map(post, FullInfoPost.class);
+        }
+        return null;
     }
 
     @Override
@@ -225,9 +229,8 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void updateTrashed(Long id, boolean trashed) throws ResourceNotFoundException {
         postRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Could not find any post with the given id: " + id));
-        postRepo.updateEnabled(id,trashed);
+        postRepo.updateEnabled(id, trashed);
     }
-
 
 
     private void checkUniqueSlug(String slug) {

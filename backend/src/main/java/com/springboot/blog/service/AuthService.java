@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 
 public interface AuthService {
     AuthenticationResponse authenticate(AuthenticationRequest request) throws BadRequestException;
-    void register(HttpServletRequest servletRequest,RegisterRequest request) throws UniqueFieldViolationException, MessagingException, UnsupportedEncodingException;
+    void register(RegisterRequest request) throws UniqueFieldViolationException, MessagingException, UnsupportedEncodingException;
 
     AuthenticationResponse refreshToken(HttpServletRequest request, HttpServletResponse response);
 
