@@ -20,13 +20,17 @@ const postSlice = createSlice({
         deletePost: (state, {payload}) => {
             state.posts.data = state.posts.data.filter((post) => post.id !== payload);
         },
-        addPost: (state, {payload}) => {
+        addPost: (state, ) => {
+            
+            state.loading = false;
+        },
+        addPostSuccess: (state, {payload}) => {
             if (!state.posts?.data) {
                 state.posts = { data: [] };
             }
             state.posts.data.push(payload);
-            state.loading = false;
         },
+        addPostFailure: (state) => {state.loading = false},
         updatePost: (state) => {state.loading = true},
         updatePostSuccess: (state, {payload}) => {
             state.posts = state.posts.map((post) => post.id === payload.id ? {...post,...payload} : post);
@@ -38,7 +42,7 @@ const postSlice = createSlice({
 
 })
 
-export const {getAllPostsForAdmin,getAllPostsForUser, getAllPostsSuccess, getAllPostsFailure, deletePost, addPost, addPostSuccess, addPostFailure, updatePost, updatePostSuccess, updatePostFailure,
+export const {getAllPostsForAdmin,getAllPostsForUser, getAllPostsSuccess, getAllPostsFailure, deletePost, addPost, addPostSuccess, addPostFailure, updatePost, updatePostSuccess, updatePostFailure, 
 
 
 } = postSlice.actions;
