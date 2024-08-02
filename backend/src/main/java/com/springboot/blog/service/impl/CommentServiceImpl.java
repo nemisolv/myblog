@@ -7,8 +7,10 @@ import com.springboot.blog.payload.CommentDTO;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -44,10 +46,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+
+    @Transactional
     public void deleteComment(Long commentId) throws ResourceNotFoundException {
         Comment comment = commentRepo.findById(commentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found with id: " + commentId));
-
-        commentRepo.delete(comment);
+        commentRepo.deleteById(commentId);
     }
 }

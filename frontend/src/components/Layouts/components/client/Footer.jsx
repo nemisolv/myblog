@@ -13,7 +13,8 @@ const Footer = () => {
 
                 <div className="flex space-x-4">
                     <a
-                        href="https://github.com/nemisol03"
+                        target="_blank"
+                        href="https://github.com/nemisolv"
                         className="text-gray-400 hover:text-white transition duration-300"
                     >
                         <FontAwesomeIcon icon={faGithub} />

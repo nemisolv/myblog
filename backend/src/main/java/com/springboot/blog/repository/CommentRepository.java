@@ -2,6 +2,7 @@ package com.springboot.blog.repository;
 
 import com.springboot.blog.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,6 +16,10 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
 
     List<Comment> findAllByPostIdOrderByCreatedAtDesc(Long id);
     Long countByUserId(Long userId);
+
+    @Query("delete from Comment c where c.id = :id")
+    @Modifying
+    void deleteById(Long id);
 
 
 }

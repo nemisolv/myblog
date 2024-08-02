@@ -3,9 +3,10 @@ package com.springboot.blog.controller;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
+import com.springboot.blog.payload.user.FullInfoUser;
 import com.springboot.blog.payload.user.UpdateUserInfoRequest;
 import com.springboot.blog.payload.user.UserDTO;
-import com.springboot.blog.payload.user.UserProfile;
+import com.springboot.blog.payload.user.PreviewUserProfile;
 import com.springboot.blog.security.CurrentUser;
 import com.springboot.blog.service.UserService;
 import com.springboot.blog.utils.UploadResource;
@@ -32,7 +33,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findUser(@PathVariable("id") Long id) {
         try {
-            UserProfile user = userService.findById(id);
+            PreviewUserProfile user = userService.findById(id);
             return ResponseEntity.ok(user);
         } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -133,4 +134,11 @@ public class UserController {
         userService.switchTFAStatus(user.getEmail());
 
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getMe(@CurrentUser User user) {
+            FullInfoUser userProfile = userService.fetchMe(user);
+            return ResponseEntity.ok(userProfile);
+    }
+
 }

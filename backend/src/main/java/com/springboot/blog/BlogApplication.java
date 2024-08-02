@@ -7,18 +7,25 @@ import com.springboot.blog.payload.CommentDTO;
 import com.springboot.blog.payload.FullInfoPost;
 import com.springboot.blog.payload.PostDTO;
 import com.springboot.blog.payload.TagDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MatchingStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @EnableJpaAuditing
+@Slf4j
 public class BlogApplication {
+    @Autowired
+    private Environment env;
 
     @Bean
     public ModelMapper modelMapper() {
@@ -44,7 +51,10 @@ public class BlogApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(BlogApplication.class, args);
+
+       var applicationContext =  SpringApplication.run(BlogApplication.class, args);
+        BlogApplication app = applicationContext.getBean(BlogApplication.class);
+        log.info("Application is running in {} mode", (Object) app.env.getActiveProfiles());
     }
 
 }

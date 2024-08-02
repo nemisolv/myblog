@@ -3,9 +3,10 @@ package com.springboot.blog.service.impl;
 import com.springboot.blog.entity.User;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.payload.*;
+import com.springboot.blog.payload.user.FullInfoUser;
 import com.springboot.blog.payload.user.UpdateUserInfoRequest;
 import com.springboot.blog.payload.user.UserDTO;
-import com.springboot.blog.payload.user.UserProfile;
+import com.springboot.blog.payload.user.PreviewUserProfile;
 import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.repository.UserRepository;
@@ -39,10 +40,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserProfile findById(Long id) throws ResourceNotFoundException {
+    public PreviewUserProfile findById(Long id) throws ResourceNotFoundException {
         User user = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Could not find any user with the given id: " + id));
 
-        UserProfile userProfile = modelMapper.map(user, UserProfile.class);
+        PreviewUserProfile userProfile = modelMapper.map(user, PreviewUserProfile.class);
         userProfile.setNumOfComments(commentRepo.countByUserId(userProfile.getId()));
         userProfile.setNumOfPosts(postRepo.countByUserId(userProfile.getId()));
 
@@ -159,5 +160,10 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setConfirmedEmail(true);
         userRepo.save(user);
+    }
+
+    @Override
+    public FullInfoUser fetchMe(User user) {
+        return modelMapper.map(user, FullInfoUser.class);
     }
 }

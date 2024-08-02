@@ -37,7 +37,7 @@ const sidebarLinks = [
     // },
     {
         name: 'Security',
-        path: '/admin/security',
+        path: '/security',
         icon: <IconLock/>
     },
 

@@ -42,7 +42,7 @@ privateRequest.interceptors.response.use(
                     },
                 });
                 console.log('🚀 ~ response:', response);
-                const { token } = response.data;
+                const { token } = response;
                 saveToken(token, refresh_token);
                 originalRequest.headers.Authorization = `Bearer ${token}`;
                 return privateRequest(originalRequest);

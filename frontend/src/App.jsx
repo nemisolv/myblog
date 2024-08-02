@@ -16,11 +16,9 @@ const ManagePosts = lazy(() => import('@/pages/admin/Posts/ManagePosts'));
 const PostDetail = lazy(() => import('@/pages/PostDetail'));
 const UpdatePost = lazy(() => import('@/pages/admin/Posts/Update'));
 const ManageUsers = lazy(() => import('@/pages/admin/Users/ManageUsers'));
-const Trash = lazy(() => import('@/pages/admin/Trash/RecycleBin'));
 const OwnerProfile = lazy(() => import('@/pages/Profile/EditProfile'));
 const Profile = lazy(() => import('@/pages/Profile/Profile'));
 const Security = lazy(() => import('@/pages/Security'));
-const OAuth2RedirectHandler = lazy(() => import('@/utils/OAuth2RedirectHandler'));
 const VerifyEmail = lazy(() => import('@/pages/VerifyEmail'));
 const Settings = lazy(() => import('@/pages/Settings'));
 const ManageTags = lazy(() => import('@/pages/admin/Tags/ManageTags'));
@@ -28,6 +26,7 @@ const AddTag = lazy(() => import('@/pages/admin/Tags/Add'));
 const UpdateTag = lazy(() => import('@/pages/admin/Tags/Update'));
 const Post = lazy(() => import('@/pages/PostDetail'));
 const RecycleBin = lazy(() => import('@/pages/admin/Trash/RecycleBin'));
+const OAuth2Redirect = lazy(() => import('@/pages/OAuth2Redirect'));
 
 function App() {
 
@@ -41,7 +40,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/post/:id" element={<PostDetail />} />
                         <Route path="/verify-email" element={<VerifyEmail />} />
-                        <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+                        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
                     </Route>
 
                     {/* default layout */}

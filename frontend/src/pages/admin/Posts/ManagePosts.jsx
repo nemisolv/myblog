@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import Table from '@/components/Table';
 import { IconAdjust, IconDelete, IconEye } from '@/components/icons';
 

@@ -107,24 +107,24 @@ function Login() {
                             <div className="border-t border-gray-200 w-full h-1"></div>
                         </div>
                         <div className="mt-4 flex justify-between items-center">
-                            <a
-                                href={GOOGLE_AUTH_URL}
+                            <Link
+                                to={GOOGLE_AUTH_URL}
                                 className="flex gap-x-2 items-center p-3 shadow rounded-lg hover:shadow-md  cursor-pointer"
                             >
                                 <div>
                                     <img src={googleLogo} alt="" className="w-4" />
                                 </div>
                                 <span className="text-xs text-slate-600">Continue with Google</span>
-                            </a>
-                            <a
-                                href={GITHUB_AUTH_URL}
+                            </Link>
+                            <Link
+                                to={GITHUB_AUTH_URL}
                                 className="flex gap-x-2 items-center p-3 shadow rounded-lg hover:shadow-md  cursor-pointer"
                             >
                                 <div>
                                     <img src={githubLogo} alt="" className="w-4" />
                                 </div>
                                 <span className="text-xs text-slate-600">Continue with Github</span>
-                            </a>
+                            </Link>
                         </div>
                     </form>
                 </div>

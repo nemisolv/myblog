@@ -61,7 +61,7 @@ function Comment({ postId }) {
                 );
             } else {
                 console.log('post duowc khong');
-                const res = await privateRequest.post(`/comments`, { message: comment, post_id: postId });
+                const res = await privateRequest.post(`/comments`, { message: comment,  postId });
                 setComments((prev) => [res, ...prev]);
             }
 
@@ -168,10 +168,10 @@ function Comment({ postId }) {
                                                 src={cmt.user.avatar || '/thumb-default.jpg'}
                                                 alt="Michael Gough"
                                             />
-                                            {cmt.user.first_name + ' ' + cmt.user.last_name}
+                                            {cmt.user.firstName + ' ' + cmt.user.lastName}
                                         </p>
                                         <span className="text-xs text-gray-400 font-medium">
-                                            {formatDistanceToNow(cmt.updated_at || cmt.created_at) + ' ago'}
+                                            {formatDistanceToNow(cmt.updatedAt || cmt.createdAt) + ' ago'}
                                         </span>
                                     </div>
                                 </footer>

@@ -1,4 +1,4 @@
-import { privateRequest, publicRequest } from "../config/axiosConfig"
+import { privateRequest } from "../config/axiosConfig"
 class UserService {
     static switchTFA = async(data) => {
         try {
@@ -20,6 +20,10 @@ class UserService {
     static trashUser(data) {
         const { id, flag } = data;
         return privateRequest.patch(`users/${id}/trashed/${flag}`);
+    }
+
+    static getFullInfoOfCurrentUser() {
+        return privateRequest.get("/users/me");
     }
 }
 

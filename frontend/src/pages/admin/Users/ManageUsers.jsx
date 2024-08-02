@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import Table from '@/components/Table';
 import {  IconDelete, IconEye } from '@/components/icons';
 
-import { privateRequest } from '@/config/axiosConfig';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import ReactPaginate from 'react-paginate';
-import IconCheck from '@/components/icons/IconCheck';
 import LoadingPage from '@/components/shared/LoadingPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers, trashUser } from '@/store/slices/userSlice';

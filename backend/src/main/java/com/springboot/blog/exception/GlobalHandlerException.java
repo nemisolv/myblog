@@ -88,5 +88,11 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
     }
 
 
+    @ExceptionHandler(Oauth2AuthenticationProcessionException.class)
+    public ResponseEntity<String> handleOauth2AuthenticationProcessionException(Oauth2AuthenticationProcessionException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+
 
 }

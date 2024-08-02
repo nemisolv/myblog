@@ -47,7 +47,7 @@ public class Post extends AuditableEntity {
 
 
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne

@@ -1,4 +1,4 @@
-import { privateRequest, publicRequest } from "@/config/axiosConfig";
+import {  publicRequest } from "@/config/axiosConfig";
 
 export default class AuthService {
     static login(data) {

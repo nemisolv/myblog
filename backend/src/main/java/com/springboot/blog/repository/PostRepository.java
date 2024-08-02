@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("SELECT p from Post p where p.status = 'APPROVED' and p.trashed=false and p.slug= ?1")
+    @Query("SELECT p from Post p where p.status = 'APPROVED' and p.trashed= false and p.slug= ?1")
     Optional<Post> findBySlug(String slug);
 
     @Query("select p from Post  p where concat(p.title,' ',p.content) like %?1%")
@@ -22,7 +22,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 
 
-    @Query("SELECT p FROM Post p WHERE p.trashed = false AND p.status = 'APPROVED'")
+    @Query("SELECT p FROM Post p WHERE p.trashed = false AND p.status = 'APPROVED' and p.trashed = false")
     Page<Post> findAllApprovedPosts(Pageable pageable);
 
     @Query("SELECT p FROM Post p WHERE p.trashed = false ")
@@ -56,7 +56,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     void updateEnabled(Long id, boolean trashed);
 
-    @Query("SELECT p FROM Post p WHERE p.tag.id = ?2 AND p.id<>?1 AND p.status='APPROVED'")
+    @Query("SELECT p FROM Post p WHERE p.tag.id = ?2 AND p.id<>?1 AND p.status='APPROVED' and p.trashed=false")
     List<Post> listRelatedPosts(Long id,Long tagId);
 
     @Query("SELECT p FROM Post p WHERE p.hot = true AND p.status='APPROVED'")
