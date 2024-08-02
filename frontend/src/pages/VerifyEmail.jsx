@@ -20,9 +20,10 @@ function VerifyEmail({
             try {
                 const res = await AuthService.verifyEmail(token);
                 setLoading(false);
-                    setVerified(true);
+                setVerified(true);
             } catch (err) {
-                setError(err.response.data);
+                console.log("🚀 ~ verify ~ err:", err)
+                setError(err?.response?.data);
                 setLoading(false);
             }
         };

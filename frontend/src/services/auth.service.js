@@ -11,6 +11,10 @@ export default class AuthService {
         return publicRequest.post('/auth/verify-tfa', data);
     }
 
+    static verifyEmail(token) {
+        return publicRequest.get(`/auth/verify-email?token=${token}`);
+    }
+
    
    
     

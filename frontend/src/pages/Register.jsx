@@ -14,8 +14,15 @@ import { register } from '@/store/slices/authSlice';
 const schema = Yup.object({
     firstName: Yup.string().required('first name cannot be empty'),
     lastName: Yup.string().required('lastname cannot be empty'),
-    email: Yup.string().email('invalid email address').required("Email can't be empty"),
-    password: Yup.string().required("Password can't be empty").min(6, 'Password must be at least 6 characters'),
+    email: Yup.string()
+    .email('Invalid email address')
+    .required("Email can't be empty")
+    
+  ,
+    password: Yup.string().required("Password can't be empty").min(6, 'Password must be at least 6 characters').matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        'Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
+      ),
 });
 
 function Register() {
