@@ -12,8 +12,8 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft';
 import { register } from '@/store/slices/authSlice';
 
 const schema = Yup.object({
-    first_name: Yup.string().required('first name cannot be empty'),
-    last_name: Yup.string().required('lastname cannot be empty'),
+    firstName: Yup.string().required('first name cannot be empty'),
+    lastName: Yup.string().required('lastname cannot be empty'),
     email: Yup.string().email('invalid email address').required("Email can't be empty"),
     password: Yup.string().required("Password can't be empty").min(6, 'Password must be at least 6 characters'),
 });
