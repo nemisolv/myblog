@@ -3,6 +3,7 @@ import { Link, useLocation} from 'react-router-dom';
 import AuthService from '@/services/auth.service';
 import SucceededImage from '@/assets/images/image_succeeded.png';
 import failedImage from '@/assets/images/image_failed.png';
+import { toast } from 'react-toastify';
 
 function VerifyEmail({
     title = 'Verified email successfully!',
@@ -25,6 +26,7 @@ function VerifyEmail({
                 console.log("🚀 ~ verify ~ err:", err)
                 setError(err?.response?.data);
                 setLoading(false);
+                toast.error('Cannot verify email');
             }
         };
         verify();
